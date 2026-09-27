@@ -1,0 +1,24 @@
+﻿.venv/
+__pycache__/
+*.pyc
+
+# Modeles et moteur local
+models/
+runtime/
+
+# Comptes et mots de passe
+users/
+**/identifiants.txt
+
+# Conversations et souvenirs personnels
+memory/users/
+memory/conversation.json
+memory/memories.json
+
+# Donnees d'evolution locales
+data/evolution/backups/
+data/evolution/staging/
+data/evolution/logs/
+
+# Logs
+logs/
