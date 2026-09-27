@@ -2,23 +2,22 @@
 __pycache__/
 *.pyc
 
-# Modeles et moteur local
 models/
 runtime/
+logs/
 
-# Comptes et mots de passe
 users/
-**/identifiants.txt
-
-# Conversations et souvenirs personnels
-memory/users/
 memory/conversation.json
 memory/memories.json
 
-# Donnees d'evolution locales
-data/evolution/backups/
-data/evolution/staging/
-data/evolution/logs/
+personality/personality.json
+personality/evolution_log.jsonl
+personality/users/
 
-# Logs
-logs/
+data/
+.streamlit/secrets.toml
+
+*.token
+*.key
+*.secret
+identifiants.txt
