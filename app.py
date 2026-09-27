@@ -1,4 +1,4 @@
-ï»¿import streamlit as st
+import streamlit as st
 
 from auth import (
     authenticate,
@@ -26,7 +26,7 @@ BASE = Path(__file__).parent
 # Mode public : 1 = visiteurs sans connexion
 # Mode local : 0 = connexion admin normale
 import os
-ARTHUR_PUBLIC = os.environ.get("ARTHUR_PUBLIC", "0") == "1"
+ARTHUR_PUBLIC = os.environ.get("ARTHUR_PUBLIC", "1") == "1"
 
 
 # =========================================================
@@ -35,7 +35,7 @@ ARTHUR_PUBLIC = os.environ.get("ARTHUR_PUBLIC", "0") == "1"
 
 st.set_page_config(
     page_title="Arthur",
-    page_icon="ğŸ¤–",
+    page_icon="??",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -259,7 +259,7 @@ def register_user(
 
         return (
             False,
-            "Le nom doit contenir au moins 2 caractÃ¨res."
+            "Le nom doit contenir au moins 2 caractères."
         )
 
     if not password:
@@ -275,7 +275,7 @@ def register_user(
 
         return (
             False,
-            "Ce nom existe dÃ©jÃ ."
+            "Ce nom existe déjà."
         )
 
     salt = secrets.token_bytes(32)
@@ -307,7 +307,7 @@ def register_user(
 
     return (
         True,
-        "Compte crÃ©Ã©."
+        "Compte créé."
     )
 
 
@@ -324,7 +324,7 @@ if not is_online():
     st.markdown(
         """
         <div class="offline-title">
-            ğŸ¤– Arthur est hors ligne
+            ?? Arthur est hors ligne
         </div>
         """,
         unsafe_allow_html=True
@@ -333,10 +333,10 @@ if not is_online():
     st.markdown(
         """
         <div class="offline-text">
-            Arthur a Ã©tÃ© Ã©teint par l'administrateur
+            Arthur a été éteint par l'administrateur
             pour tout le monde.<br><br>
-            Entre le code d'accÃ¨s administrateur
-            pour le redÃ©marrer.
+            Entre le code d'accès administrateur
+            pour le redémarrer.
         </div>
         """,
         unsafe_allow_html=True
@@ -349,13 +349,13 @@ if not is_online():
     ):
 
         restart_code = st.text_input(
-            "Code d'accÃ¨s",
+            "Code d'accès",
             type="password",
-            placeholder="Code de redÃ©marrage"
+            placeholder="Code de redémarrage"
         )
 
         restart = st.form_submit_button(
-            "â–¶ï¸ RedÃ©marrer Arthur",
+            "?? Redémarrer Arthur",
             use_container_width=True
         )
 
@@ -376,7 +376,7 @@ if not is_online():
                 restart_shared_brain()
 
                 st.success(
-                    "Arthur va redÃ©marrer..."
+                    "Arthur va redémarrer..."
                 )
 
                 st.rerun()
@@ -405,7 +405,7 @@ if ARTHUR_PUBLIC and "account" not in st.session_state:
 
 if "account" not in st.session_state and not ARTHUR_PUBLIC:
 
-    st.title("ğŸ¤– Arthur")
+    st.title("?? Arthur")
 
     st.write(
         "IA personnelle locale."
@@ -462,7 +462,7 @@ if "account" not in st.session_state and not ARTHUR_PUBLIC:
     with register_tab:
 
         st.subheader(
-            "CrÃ©er un compte"
+            "Créer un compte"
         )
 
         new_username = st.text_input(
@@ -483,14 +483,14 @@ if "account" not in st.session_state and not ARTHUR_PUBLIC:
         )
 
         if st.button(
-            "CrÃ©er mon compte",
+            "Créer mon compte",
             use_container_width=True
         ):
 
             if new_password != confirm_password:
 
                 st.error(
-                    "Les mots de passe sont diffÃ©rents."
+                    "Les mots de passe sont différents."
                 )
 
             else:
@@ -551,19 +551,19 @@ arthur = st.session_state.arthur
 # =========================================================
 
 st.markdown(
-    '<div class="arthur-title">ğŸ¤– Arthur</div>',
+    '<div class="arthur-title">?? Arthur</div>',
     unsafe_allow_html=True
 )
 
 st.markdown(
-    '<div class="arthur-online">â— En ligne</div>',
+    '<div class="arthur-online">? En ligne</div>',
     unsafe_allow_html=True
 )
 
 st.write(
-f"ConnectÃ© : {account.get('display_name', 'Visiteur')}"
+f"Connecté : {account.get('display_name', 'Visiteur')}"
     + (
-        " ğŸ‘‘ ADMIN"
+        " ?? ADMIN"
         if role == "admin"
         else ""
     )
@@ -589,7 +589,7 @@ with st.sidebar:
         st.divider()
 
         st.write(
-            "ğŸ‘‘ **Administration**"
+            "?? **Administration**"
         )
 
         st.write(
@@ -601,13 +601,13 @@ with st.sidebar:
         )
 
         st.caption(
-            "ArrÃªte Arthur pour tous les utilisateurs."
+            "Arrête Arthur pour tous les utilisateurs."
         )
 
     st.divider()
 
     if st.button(
-        "ğŸšª Se dÃ©connecter",
+        "?? Se déconnecter",
         use_container_width=True
     ):
 
@@ -637,7 +637,7 @@ for message in messages:
 
         with st.chat_message(
             "user",
-            avatar="ğŸ‘¤"
+            avatar="??"
         ):
 
             st.write(
@@ -648,7 +648,7 @@ for message in messages:
 
         with st.chat_message(
             "assistant",
-            avatar="ğŸ¤–"
+            avatar="??"
         ):
 
             st.write(
@@ -661,7 +661,7 @@ for message in messages:
 # =========================================================
 
 prompt = st.chat_input(
-    "Ã‰cris un message..."
+    "Écris un message..."
 )
 
 
@@ -689,8 +689,8 @@ if prompt:
         if not arthur.is_admin:
 
             answer = (
-                "La commande /stop est rÃ©servÃ©e "
-                "Ã  l'administrateur."
+                "La commande /stop est réservée "
+                "à l'administrateur."
             )
 
             arthur.memory.add_message(
@@ -734,7 +734,7 @@ if prompt:
 
         with st.chat_message(
             "user",
-            avatar="ğŸ‘¤"
+            avatar="??"
         ):
 
             st.write(
@@ -743,11 +743,11 @@ if prompt:
 
         with st.chat_message(
             "assistant",
-            avatar="ğŸ¤–"
+            avatar="??"
         ):
 
             with st.spinner(
-                "Arthur Ã©crit..."
+                "Arthur écrit..."
             ):
 
                 answer = (
@@ -759,6 +759,7 @@ if prompt:
             st.write(
                 answer
             )
+
 
 
 
