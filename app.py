@@ -23,6 +23,11 @@ import secrets
 
 BASE = Path(__file__).parent
 
+# Mode public : 1 = visiteurs sans connexion
+# Mode local : 0 = connexion admin normale
+import os
+ARTHUR_PUBLIC = os.environ.get("ARTHUR_PUBLIC", "0") == "1"
+
 
 # =========================================================
 # CONFIG
@@ -389,7 +394,16 @@ if not is_online():
 # CONNEXION
 # =========================================================
 
-if "account" not in st.session_state:
+if ARTHUR_PUBLIC and "account" not in st.session_state:
+
+    st.session_state.account = {
+        "username": "visiteur",
+        "display_name": "Visiteur",
+        "role": "USER",
+        "public": True
+    }
+
+if "account" not in st.session_state and not ARTHUR_PUBLIC:
 
     st.title("🤖 Arthur")
 
@@ -547,7 +561,7 @@ st.markdown(
 )
 
 st.write(
-    f"Connecté : {account['display_name']}"
+f"Connecté : {account.get('display_name', 'Visiteur')}"
     + (
         " 👑 ADMIN"
         if role == "admin"
@@ -745,6 +759,8 @@ if prompt:
             st.write(
                 answer
             )
+
+
 
 
 
